@@ -1,43 +1,43 @@
 // Add your code here
-// function submitData(name,email) {
+const init = () => {
+    let form = document.querySelector('form') 
     
-    
-//     const obj = {
-//         method: "POST",
-//         Headers: {
-//             "Content-Type" : "Application/json",
-//             "Accept":"Application/json",
+    form.addEventListener('submit', e => {
+        e.preventDefault()
+        let nameVal = e.target.name.value
+        let emailVal = e.target.email.value
+        addData(nameVal,emailVal)
+        form.reset()
+    } )
 
-//         },
-//         body: JSON.stringify({
-//             name:name,
-//             email:email,
-
-//         })
-//     }
-//     fetch("http://localhost:3000/users", obj)
-//         .then(res => res.json())
-//         .then(data => console.log(data))
-//         .catch(error => {
-//             alert("eorror happened")
-//             console.log(error.mesaage)
-//         })
-
-
-// }
-
-// submitData("aa","bb")
-
-const form = document.querySelector("form")
-form.addEventListener('submit', submitForm)
-
-function submitForm(event) {
-    event.preventDefault();
-    console.log(document.querySelector("#name").ariaValueMin)
-    console.log(form.querySelector("#name").value)
-    console.log(event.target.name.value)
-    console.log(form.name.value)
-    
-    console.log()
 }
 
+function addData(nameInput,emailInput) {
+    let formObj = {
+        name: nameInput,
+        email:emailInput
+    }
+    
+    const dataObj = {
+        method: "POST",
+        Headers: {
+            "Content-Type" : "Application/json",
+            "Accept":"Application/json",
+
+        },
+        body: JSON.stringify(formObj
+            )
+    }
+    fetch("http://localhost:3000/users", dataObj)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => {
+            alert("eorror happened")
+            console.log(error.mesaage)
+        })
+
+
+}
+
+
+document.addEventListener("DOMContentLoaded", init )
